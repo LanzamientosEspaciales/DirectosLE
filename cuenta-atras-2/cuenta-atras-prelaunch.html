@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta atras [PRE LAUNCH]</title>
+    <link rel="stylesheet" href="css/cuenta-atras-pre-launch.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <div id="control-2" class="control-block contenedorPrincipal">
+        <div class="cownntdown" id="cuentaAtras">T±00:00:00</div>
+        <div class="missionName" id="missionName"></div>
+        
+    </div>
+    <script src="js/cuenta-atras-1.js"></script>
+    <script>
+        const contadoresCollection = db.collection('contadores');
+      
+        function verificarEstadoActivoCuenta1() {
+          contadoresCollection.doc('cuenta-regresiva-2').get()
+            .then(doc => {
+              if (!doc.exists) {
+                console.warn('Documento cuenta-regresiva-2 no encontrado');
+                return;
+              }
+      
+              const data = doc.data();
+              const contenedor = document.getElementById('control-2');
+              if (!contenedor) {
+                console.warn('Contenedor control-2 no encontrado');
+                return;
+              }
+      
+              const estaActivo = data.activo !== false;
+      
+              if (!estaActivo) {
+                contenedor.classList.add('inactivo');
+              } else {
+                contenedor.classList.remove('inactivo');
+              }
+      
+            })
+            .catch(err => {
+              console.error('Error al verificar estado activo:', err);
+            });
+        }
+      
+        // Iniciar verificación al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+          verificarEstadoActivoCuenta1(); // Primera verificación inmediata
+          setInterval(verificarEstadoActivoCuenta1, 1000); // Luego cada 1 segundo
+        });
+      </script>
+</body>
+</html>

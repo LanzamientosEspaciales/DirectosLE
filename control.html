@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Control de Cuentas Regresivas - Lanzamientos Espaciales</title>
+  <link rel="shortcut icon" href="https://controldemision.com/wp-content/uploads/2025/05/LE-circle.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #121212;
+      color: #e0e0e0;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #f0f0f0;
+    }
+    .contenedor {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: nowrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .control-block {
+      background: #1e1e1e;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      padding: 20px;
+      width: 420px;
+      box-sizing: border-box;
+      border: 1px solid #333;
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+      color: #ccc;
+    }
+    input[type="text"],
+    input[type="date"],
+    input[type="time"] {
+      width: 100%;
+      padding: 6px 8px;
+      box-sizing: border-box;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #2a2a2a;
+      color: #e0e0e0;
+    }
+    .checkbox-group label {
+      font-weight: normal;
+      margin-right: 15px;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+      color: #ccc;
+    }
+    .checkbox-group input[type="checkbox"] {
+      cursor: pointer;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #155ab6;
+    }
+
+    /* 🔄 Estilo del switch */
+    .switch-container {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #555;
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    .switch input:checked + .slider {
+      background-color: #1a73e8;
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Control de Cuentas Regresivas</h2>
+
+  <div class="contenedor">
+    <div id="control-1" class="control-block">
+      <h3>Cuenta Regresiva 1</h3>
+        <!-- Dentro de Cuenta Regresiva 1 -->
+        
+
+      <!-- Switch Activo -->
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="activo-1" />
+          <span class="slider"></span>
+        </label>
+        <span>Activa</span>
+      </div>
+
+      <label for="fecha-1">Fecha:</label>
+      <input type="date" id="fecha-1" />
+
+      <label for="hora-1">Hora:</label>
+      <input type="time" id="hora-1" step="1" />
+
+      <label for="cohete-1">Cohete:</label>
+      <input type="text" id="cohete-1" />
+
+      <label for="mision-1">Misión:</label>
+      <input type="text" id="mision-1" />
+
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="hold-1" /> Hold</label>
+        <label><input type="checkbox" id="scrub-1" /> Scrub</label>
+        <label><input type="checkbox" id="abort-1" /> Abort</label>
+        <label><input type="checkbox" id="anomalia-1" /> Anomalía</label>
+        <label><input type="checkbox" id="exito-1" /> Éxito</label>
+      </div>
+      <div id="cuentaAtras1" style="margin-top: 15px; font-size: 20px; text-align: center; padding: 10px; border-radius: 6px;"></div>
+      <button onclick="guardarCuenta('cuenta-regresiva-1')">Guardar Cuenta 1</button>
+    </div>
+
+    <div id="control-2" class="control-block">
+      <h3>Cuenta Regresiva 2</h3>
+      
+      <!-- Switch Activo -->
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="activo-2" />
+          <span class="slider"></span>
+        </label>
+        <span>Activa</span>
+      </div>
+
+      <label for="fecha-2">Fecha:</label>
+      <input type="date" id="fecha-2" />
+
+      <label for="hora-2">Hora:</label>
+      <input type="time" id="hora-2" step="1" />
+
+      <label for="cohete-2">Cohete:</label>
+      <input type="text" id="cohete-2" />
+
+      <label for="mision-2">Misión:</label>
+      <input type="text" id="mision-2" />
+
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="hold-2" /> Hold</label>
+        <label><input type="checkbox" id="scrub-2" /> Scrub</label>
+        <label><input type="checkbox" id="abort-2" /> Abort</label>
+        <label><input type="checkbox" id="anomalia-2" /> Anomalía</label>
+        <label><input type="checkbox" id="exito-2" /> Éxito</label>
+      </div>
+      <div id="cuentaAtras2" style="margin-top: 15px; font-size: 20px; text-align: center; padding: 10px; border-radius: 6px;"></div>
+      <button onclick="guardarCuenta('cuenta-regresiva-2')">Guardar Cuenta 2</button>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDIT7aJdzG6TcybE-Yi3zmv1Un9oAmSW9Q",
+      authDomain: "directosle-964f0.firebaseapp.com",
+      projectId: "directosle-964f0",
+      storageBucket: "directosle-964f0.firebasestorage.app",
+      messagingSenderId: "704068764497",
+      appId: "1:704068764497:web:11a70dd15586800469c970"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const contadoresCollection = db.collection('contadores');
+
+    function cargarCuenta(docId, indice) {
+      contadoresCollection.doc(docId).get()
+        .then(doc => {
+          if (!doc.exists) throw new Error('Documento no encontrado: ' + docId);
+          const data = doc.data();
+
+          if (typeof data.fecha === 'string' && data.fecha.includes('/')) {
+            const partesFecha = data.fecha.split('/');
+            if (partesFecha.length === 3) {
+              const yyyy = partesFecha[0];
+              const mm = partesFecha[1].padStart(2, '0');
+              const dd = partesFecha[2].padStart(2, '0');
+              const fechaISO = `${yyyy}-${mm}-${dd}`;
+              document.getElementById(`fecha-${indice}`).value = fechaISO;
+            } else {
+              console.warn(`Formato de fecha inesperado en ${docId}`);
+            }
+          } else {
+            console.warn(`Fecha no definida o formato inválido en ${docId}`);
+          }
+
+          document.getElementById(`hora-${indice}`).value = data.hora || '';
+          document.getElementById(`cohete-${indice}`).value = data.cohete || '';
+          document.getElementById(`mision-${indice}`).value = data.mision || '';
+
+          const status = data.status || {};
+          document.getElementById(`hold-${indice}`).checked = status.hold || false;
+          document.getElementById(`scrub-${indice}`).checked = status.scrub || false;
+          document.getElementById(`abort-${indice}`).checked = status.abort || false;
+          document.getElementById(`anomalia-${indice}`).checked = status.anomalia || false;
+          document.getElementById(`exito-${indice}`).checked = status.exito || false;
+
+          // Leer estado activo
+          document.getElementById(`activo-${indice}`).checked = data.activo || false;
+        })
+        .catch(error => {
+          console.error('Error al cargar cuenta', docId, error);
+          alert('Error al cargar los datos de ' + docId);
+        });
+    }
+
+    function guardarCuenta(docId) {
+      const indice = docId.endsWith('1') ? '1' : '2';
+
+      const fechaInput = document.getElementById(`fecha-${indice}`).value;
+      const partes = fechaInput.split('-');
+      const fecha = partes.length === 3 ? `${partes[0]}/${partes[1]}/${partes[2]}` : '';
+
+      const hora = document.getElementById(`hora-${indice}`).value;
+      const cohete = document.getElementById(`cohete-${indice}`).value;
+      const mision = document.getElementById(`mision-${indice}`).value;
+
+      const status = {
+        hold: document.getElementById(`hold-${indice}`).checked,
+        scrub: document.getElementById(`scrub-${indice}`).checked,
+        abort: document.getElementById(`abort-${indice}`).checked,
+        anomalia: document.getElementById(`anomalia-${indice}`).checked,
+        exito: document.getElementById(`exito-${indice}`).checked,
+      };
+
+      const activo = document.getElementById(`activo-${indice}`).checked;
+
+      contadoresCollection.doc(docId).set({
+        fecha,
+        hora,
+        cohete,
+        mision,
+        status,
+        activo
+      })
+      .then(() => {
+        // alert(`Datos de ${docId} guardados correctamente`);
+      })
+      .catch(error => {
+        console.error('Error guardando datos:', error);
+        alert('Error guardando datos');
+      });
+    }
+
+    window.onload = () => {
+      cargarCuenta('cuenta-regresiva-1', '1');
+      cargarCuenta('cuenta-regresiva-2', '2');
+    };
+  </script>
+  <script>
+    function iniciarCuentaRegresiva(docId, elementoId) {
+      const cuentaAtras = document.getElementById(elementoId);
+      const clasesEstado = ['status-verde', 'status-naranja', 'status-rojo'];
+    
+      setInterval(() => {
+        db.collection('contadores').doc(docId).get().then(doc => {
+          if (!doc.exists) {
+            cuentaAtras.textContent = "Sin datos";
+            return;
+          }
+    
+          const data = doc.data();
+          const fechaHora = new Date(`${data.fecha} ${data.hora}`).getTime();
+          const now = new Date().getTime();
+          const distancia = fechaHora - now;
+    
+          const { hold, scrub, abort, anomalia, exito } = data.status || {};
+    
+          clasesEstado.forEach(clase => cuentaAtras.classList.remove(clase));
+    
+          if (distancia > 0) {
+            const h = Math.floor(distancia / (1000 * 60 * 60));
+            const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distancia % (1000 * 60)) / 1000);
+    
+            if (scrub) {
+              cuentaAtras.textContent = "CANCELADO";
+              cuentaAtras.style.backgroundColor = "red";
+              cuentaAtras.classList.add("status-rojo");
+            } else if (abort) {
+              cuentaAtras.textContent = "ABORTO";
+              cuentaAtras.style.backgroundColor = "red";
+              cuentaAtras.classList.add("status-rojo");
+            } else if (hold) {
+              cuentaAtras.textContent = "HOLD";
+              cuentaAtras.style.backgroundColor = "orange";
+              cuentaAtras.classList.add("status-naranja");
+            } else if (anomalia) {
+              cuentaAtras.textContent = "ANOMALÍA";
+              cuentaAtras.style.backgroundColor = "red";
+              cuentaAtras.classList.add("status-rojo");
+            } else {
+              cuentaAtras.textContent = `T-${formatTime(h)}:${formatTime(m)}:${formatTime(s)}`;
+              cuentaAtras.style.backgroundColor = "rgb(0, 62, 158)";
+            }
+    
+          } else {
+            const elapsed = -distancia + 1000;
+            const eh = Math.floor(elapsed / (1000 * 60 * 60));
+            const em = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+            const es = Math.floor((elapsed % (1000 * 60)) / 1000);
+    
+            if (scrub) {
+              cuentaAtras.textContent = "CANCELADO";
+              cuentaAtras.style.backgroundColor = "red";
+              cuentaAtras.classList.add("status-rojo");
+            } else if (abort) {
+              cuentaAtras.textContent = "ABORTO";
+              cuentaAtras.style.backgroundColor = "red";
+              cuentaAtras.classList.add("status-rojo");
+            } else if (hold) {
+              cuentaAtras.textContent = "HOLD";
+              cuentaAtras.style.backgroundColor = "orange";
+              cuentaAtras.classList.add("status-naranja");
+            } else if (anomalia) {
+              cuentaAtras.textContent = "ANOMALÍA";
+              cuentaAtras.style.backgroundColor = "red";
+              cuentaAtras.classList.add("status-rojo");
+            } else if (exito) {
+              cuentaAtras.textContent = "ÉXITO";
+              cuentaAtras.style.backgroundColor = "green";
+              cuentaAtras.classList.add("status-verde");
+            } else {
+              cuentaAtras.textContent = `T+${formatTime(eh)}:${formatTime(em)}:${formatTime(es)}`;
+              cuentaAtras.style.backgroundColor = "rgb(0, 62, 158)";
+            }
+          }
+    
+        }).catch(err => {
+          console.error("Error leyendo datos:", err);
+          cuentaAtras.textContent = "Error";
+        });
+      }, 1000);
+    }
+    
+    function formatTime(time) {
+      return time < 10 ? "0" + time : time;
+    }
+    
+    window.onload = () => {
+      cargarCuenta('cuenta-regresiva-1', '1');
+      cargarCuenta('cuenta-regresiva-2', '2');
+    
+      iniciarCuentaRegresiva('cuenta-regresiva-1', 'cuentaAtras1');
+      iniciarCuentaRegresiva('cuenta-regresiva-2', 'cuentaAtras2');
+    };
+    </script>
+    
+
+</body>
+</html>

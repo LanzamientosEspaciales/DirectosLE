@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'Erbaum-Black-font';
+  src: url('../Fuentes/Erbaum-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Erbaum-Medium-font';
+  src: url('../Fuentes/Erbaum-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Erbaum-Medium-Thin';
+  src: url('../Fuentes/Erbaum-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+    width: 1920px;
+    height: 1080px;
+    margin: 0;
+    position: relative;
+  }
+  
+  .contrnedorPrincipal {
+    width: 1920px;
+    height: 1080px;
+    background-image: url("../img/Fondo.png");
+    background-size: 1920px 1080px;
+    position: relative;
+  }
+  
+  .marco {
+    border: 5px solid white;
+    aspect-ratio: 16/9;
+  }
+  
+  .directo {
+    position: absolute;
+    width: 1300px;
+    height: auto;
+    aspect-ratio: 16/9;
+    border: 5px solid white;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: green; /* Opcional para visualización */
+  }
+  
+  .camaras {
+    position: absolute;
+    top: 50%;
+    left: 70px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column; /* Apila las cámaras verticalmente */
+    align-items: flex-start; /* Alinea las cámaras a la izquierda del contenedor */
+    gap: 50px; /* Espacio entre las cámaras */
+  }
+  
+  .camara {
+    width: 400px;
+    height: auto;
+    aspect-ratio: 16/11;
+    background-color: green; /* Para visualización */
+  }
+  
+  .camara1 {
+    position: relative;
+  }
+  
+  .chat {
+    position: relative;
+    width: 350px;
+    height: 500px;
+    border: 5px solid white;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75); /* Opcional para visualización */
+  }
+
+  .chat .texto {
+    font-family: "Alata", sans-serif;
+    font-size: 30px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #003e9e;
+    width: 100%;
+    height: 50px;
+    top: 25px;
+  }

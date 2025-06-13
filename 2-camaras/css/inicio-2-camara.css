@@ -1,0 +1,32 @@
+body {
+    width: 1920px;
+    height: 1080px;
+    margin: 0;
+    position: relative;
+  }
+  
+  .contrnedorPrincipal {
+    width: 1920px;
+    height: 1080px;
+    background-image: url("../img/Fondo.png");
+    background-size: 1920px 1080px;
+    position: relative;
+  }
+
+.camaras {
+    display: flex; /* Flexbox para alinear las cámaras horizontalmente */
+    justify-content: center; /* Centra las cámaras horizontalmente */
+    align-items: center; /* Centra las cámaras verticalmente */
+    height: 100%; /* Ocupa toda la altura del contenedorPrincipal */
+    gap: 50px; /* Espacio entre las cámaras */
+}
+
+.marco {
+    border: 5px solid white;
+    aspect-ratio: 1/1;
+}
+
+.camara {
+    background-color: green;
+    width: 850px;
+}

@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'Erbaum-Black-font';
+    src: url('../../cuenta-atras/Fuentes/Erbaum-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum-Medium-font';
+    src: url('../../cuenta-atras/Fuentes/Erbaum-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum-Medium-Thin';
+    src: url('../../cuenta-atras/Fuentes/Erbaum-Thin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+    
+    body {
+    width: 1920px;
+    height: 1080px;
+    margin: 0;
+    position: relative;
+    }
+
+    .contenedorPrincipal {
+    width: 1920px;
+    height: 1080px;
+    background-image: url("../img/Fondo.png");
+    background-size: 1920px 1080px;
+    position: relative;
+    }
+
+    .marco {
+    border: 5px solid white;
+    aspect-ratio: 16/9;
+    }
+
+    .directo {
+    position: absolute;
+    width: 45%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border: 5px solid white;
+    background-color: green; /* Opcional para visualización */
+    bottom: 150px;
+    }
+
+    .directo-1 {
+        left: 50px;
+    }
+
+    .directo-2 {
+        right: 50px;
+    }
+
+    .directoName {
+        min-width: none;
+        min-height: none;
+        position: absolute;
+        border: 5px solid white;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 1);
+        color: black;
+        font-family: 'Erbaum-Medium-font', sans-serif;
+        font-size: 1.5em;
+        text-align: center;
+        padding: 5px;
+        white-space: nowrap;
+        text-transform: uppercase;
+    }
+
+    .camaras {
+        position: absolute;
+        display: flex; /* Flexbox para alinear las cámaras horizontalmente */
+        justify-content: center; /* Centra las cámaras horizontalmente */
+        align-items: center; /* Centra las cámaras verticalmente */
+        height: 100%; /* Ocupa toda la altura del contenedorPrincipal */
+        gap: 72px; /* Espacio entre las cámaras */
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        left: 50%;
+        top: -350px;
+        transform: translate(-50%);
+    }
+
+    .camara {
+        background-color: green;
+        width: 500px;
+        height: auto;
+        aspect-ratio: 16/9;
+    }

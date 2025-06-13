@@ -1,0 +1,57 @@
+body {
+    width: 1920px;
+    height: 1080px;
+    margin: 0;
+    position: relative;
+  }
+  
+  .contrnedorPrincipal {
+    width: 1920px;
+    height: 1080px;
+    background-image: url("../img/Fondo.png");
+    background-size: 1920px 1080px;
+    position: relative;
+  }
+  
+  .marco {
+    border: 5px solid white;
+    aspect-ratio: 16/9;
+  }
+  
+  .directo {
+    position: absolute;
+    width: 1300px;
+    height: auto;
+    aspect-ratio: 16/9;
+    border: 5px solid white;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: green; /* Opcional para visualización */
+  }
+  
+  .camaras {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column; /* Apila las cámaras verticalmente */
+    align-items: flex-start; /* Alinea las cámaras a la izquierda del contenedor */
+    gap: 50px; /* Espacio entre las cámaras */
+  }
+  
+  .camara {
+    width: 500px;
+    height: auto;
+    aspect-ratio: 16/11;
+    background-color: green; /* Para visualización */
+  }
+  
+  .camara1 {
+    position: relative;
+  }
+  
+  .camara2 {
+    position: relative;
+  }
