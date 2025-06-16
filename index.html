@@ -12,6 +12,26 @@
       background: #121212;
       color: #e0e0e0;
     }
+
+    #protected-content {
+      display: none;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
     h2 {
       text-align: center;
       margin-bottom: 30px;
@@ -160,6 +180,27 @@
 </head>
 <body>
 
+  <div id="login-form">
+    <h2>Introduce la contraseña para acceder</h2>
+    <input type="password" id="password" placeholder="Contraseña" />
+    <button onclick="checkPassword()">Acceder</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById("password").value;
+      const correctPassword = ""; // Cambia esta contraseña
+
+      if (password === correctPassword) {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("protected-content").style.display = "block";
+      } else {
+        document.getElementById("error").textContent = "Contraseña incorrecta.";
+      }
+    }
+  </script>
+<section id="protected-content">
   <h2>Control de Cuentas Regresivas</h2>
 
   <div class="contenedor">
@@ -235,10 +276,29 @@
       <button onclick="guardarCuenta('cuenta-regresiva-2')">Guardar Cuenta 2</button>
     </div>
   </div>
+</section>
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+  <script>
+    document.querySelectorAll('.checkbox-group').forEach(group => {
+      const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+  
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            // Desmarca todos menos el actual
+            checkboxes.forEach(cb => {
+              if (cb !== checkbox) cb.checked = false;
+            });
+          }
+        });
+      });
+    });
+  </script>
+  
 
   <script>
     const firebaseConfig = {
