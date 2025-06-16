@@ -84,7 +84,6 @@
       cursor: pointer;
     }
     button {
-      margin-top: 20px;
       background-color: #1a73e8;
       color: white;
       border: none;
@@ -94,6 +93,7 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       width: 100%;
+      margin: 20px auto;
     }
     button:hover {
       background-color: #155ab6;
@@ -169,6 +169,14 @@
     accent-color: rgb(0, 255, 0);
   }
 
+  #cuentaAtras1, #cuentaAtras2 {
+    margin-top: 15px;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
     @media screen and (max-width: 600px) {
       .contenedor {
         flex-direction: column;
@@ -237,7 +245,7 @@
         <label><input type="checkbox" id="anomalia-1" /> Anomalía</label>
         <label><input type="checkbox" id="exito-1" /> Éxito</label>
       </div>
-      <div id="cuentaAtras1" style="margin-top: 15px; font-size: 20px; text-align: center; padding: 10px; border-radius: 6px;"></div>
+      <div id="cuentaAtras1"></div>
       <button onclick="guardarCuenta('cuenta-regresiva-1')">Guardar Cuenta 1</button>
     </div>
 
@@ -272,7 +280,7 @@
         <label><input type="checkbox" id="anomalia-2" /> Anomalía</label>
         <label><input type="checkbox" id="exito-2" /> Éxito</label>
       </div>
-      <div id="cuentaAtras2" style="margin-top: 15px; font-size: 20px; text-align: center; padding: 10px; border-radius: 6px;"></div>
+      <div id="cuentaAtras2"></div>
       <button onclick="guardarCuenta('cuenta-regresiva-2')">Guardar Cuenta 2</button>
     </div>
   </div>
