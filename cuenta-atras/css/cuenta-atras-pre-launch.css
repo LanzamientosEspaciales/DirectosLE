@@ -27,10 +27,13 @@ body {
 
 .contenedorPrincipal {
     color: white;
-    
+    scale: 0.65;
     text-align: center;
     animation: aparecer 1s ease-out forwards;
     opacity: 0;
+    position: absolute;
+    left: 50px;
+    top: -13px;
 }
 
 @keyframes aparecer {
@@ -92,7 +95,7 @@ body {
     min-width: 250px;
     height: 29px;
     position: absolute;
-    top: 50px;
+    top: 18px;
     left: 235px;
 }
 
