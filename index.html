@@ -12,26 +12,6 @@
       background: #121212;
       color: #e0e0e0;
     }
-
-    #protected-content {
-      display: none;
-    }
-
-    input[type="password"] {
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-left: 10px;
-    }
-
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
     h2 {
       text-align: center;
       margin-bottom: 30px;
@@ -84,6 +64,7 @@
       cursor: pointer;
     }
     button {
+      margin-top: 20px;
       background-color: #1a73e8;
       color: white;
       border: none;
@@ -93,7 +74,6 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       width: 100%;
-      margin: 20px auto;
     }
     button:hover {
       background-color: #155ab6;
@@ -148,67 +128,37 @@
     .switch input:checked + .slider:before {
       transform: translateX(22px);
     }
+    .mensaje-alerta {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  max-height: 0;
+  overflow: hidden;
+}
 
-  #hold-2, #hold-1 {
-    accent-color: rgb(197, 90, 17);
-  }
+.mensaje-alerta.visible {
+  opacity: 1;
+  max-height: 100px;
+}
 
-  #scrub-2, #scrub-1 {
-    accent-color: rgb(255, 0, 0);
-  }
+.mensaje-alerta.exito {
+  background-color: #22c55e; /* verde */
+  color: white;
+}
 
-  #abort-2, #abort-1 {
-    accent-color: rgb(255, 0, 0);
-  }
+.mensaje-alerta.error {
+  background-color: #ef4444; /* rojo */
+  color: white;
+}
 
-  #anomalia-2, #anomalia-1 {
-    accent-color: rgb(255, 0, 0);
-  }
-
-  #exito-2, #exito-1 {
-    accent-color: rgb(0, 255, 0);
-  }
-
-  #cuentaAtras1, #cuentaAtras2 {
-    margin-top: 15px;
-    font-size: 20px;
-    text-align: center;
-    padding: 10px;
-    border-radius: 6px;
-  }
-
-    @media screen and (max-width: 600px) {
-      .contenedor {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-    }
   </style>
 </head>
 <body>
 
-  <div id="login-form">
-    <h2>Introduce la contraseña para acceder</h2>
-    <input type="password" id="password" placeholder="Contraseña" />
-    <button onclick="checkPassword()">Acceder</button>
-    <div id="error" class="error"></div>
-  </div>
-
-  <script>
-    function checkPassword() {
-      const password = document.getElementById("password").value;
-      const correctPassword = ""; // Cambia esta contraseña
-
-      if (password === correctPassword) {
-        document.getElementById("login-form").style.display = "none";
-        document.getElementById("protected-content").style.display = "block";
-      } else {
-        document.getElementById("error").textContent = "Contraseña incorrecta.";
-      }
-    }
-  </script>
-<section id="protected-content">
   <h2>Control de Cuentas Regresivas</h2>
 
   <div class="contenedor">
@@ -245,8 +195,9 @@
         <label><input type="checkbox" id="anomalia-1" /> Anomalía</label>
         <label><input type="checkbox" id="exito-1" /> Éxito</label>
       </div>
-      <div id="cuentaAtras1"></div>
+      <div id="cuentaAtras1" style="margin-top: 15px; font-size: 20px; text-align: center; padding: 10px; border-radius: 6px;"></div>
       <button onclick="guardarCuenta('cuenta-regresiva-1')">Guardar Cuenta 1</button>
+      <div id="mensaje-1" class="mensaje-alerta"></div>
     </div>
 
     <div id="control-2" class="control-block">
@@ -280,33 +231,15 @@
         <label><input type="checkbox" id="anomalia-2" /> Anomalía</label>
         <label><input type="checkbox" id="exito-2" /> Éxito</label>
       </div>
-      <div id="cuentaAtras2"></div>
+      <div id="cuentaAtras2" style="margin-top: 15px; font-size: 20px; text-align: center; padding: 10px; border-radius: 6px;"></div>
       <button onclick="guardarCuenta('cuenta-regresiva-2')">Guardar Cuenta 2</button>
+      <div id="mensaje-2" class="mensaje-alerta"></div>
     </div>
   </div>
-</section>
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-
-  <script>
-    document.querySelectorAll('.checkbox-group').forEach(group => {
-      const checkboxes = group.querySelectorAll('input[type="checkbox"]');
-  
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-            // Desmarca todos menos el actual
-            checkboxes.forEach(cb => {
-              if (cb !== checkbox) cb.checked = false;
-            });
-          }
-        });
-      });
-    });
-  </script>
-  
 
   <script>
     const firebaseConfig = {
@@ -317,17 +250,17 @@
       messagingSenderId: "704068764497",
       appId: "1:704068764497:web:11a70dd15586800469c970"
     };
-
+  
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const contadoresCollection = db.collection('contadores');
-
+  
     function cargarCuenta(docId, indice) {
       contadoresCollection.doc(docId).get()
         .then(doc => {
           if (!doc.exists) throw new Error('Documento no encontrado: ' + docId);
           const data = doc.data();
-
+  
           if (typeof data.fecha === 'string' && data.fecha.includes('/')) {
             const partesFecha = data.fecha.split('/');
             if (partesFecha.length === 3) {
@@ -342,19 +275,18 @@
           } else {
             console.warn(`Fecha no definida o formato inválido en ${docId}`);
           }
-
+  
           document.getElementById(`hora-${indice}`).value = data.hora || '';
           document.getElementById(`cohete-${indice}`).value = data.cohete || '';
           document.getElementById(`mision-${indice}`).value = data.mision || '';
-
+  
           const status = data.status || {};
           document.getElementById(`hold-${indice}`).checked = status.hold || false;
           document.getElementById(`scrub-${indice}`).checked = status.scrub || false;
           document.getElementById(`abort-${indice}`).checked = status.abort || false;
           document.getElementById(`anomalia-${indice}`).checked = status.anomalia || false;
           document.getElementById(`exito-${indice}`).checked = status.exito || false;
-
-          // Leer estado activo
+  
           document.getElementById(`activo-${indice}`).checked = data.activo || false;
         })
         .catch(error => {
@@ -362,76 +294,86 @@
           alert('Error al cargar los datos de ' + docId);
         });
     }
-
-    function guardarCuenta(docId) {
-      const indice = docId.endsWith('1') ? '1' : '2';
-
-      const fechaInput = document.getElementById(`fecha-${indice}`).value;
-      const partes = fechaInput.split('-');
-      const fecha = partes.length === 3 ? `${partes[0]}/${partes[1]}/${partes[2]}` : '';
-
-      const hora = document.getElementById(`hora-${indice}`).value;
-      const cohete = document.getElementById(`cohete-${indice}`).value;
-      const mision = document.getElementById(`mision-${indice}`).value;
-
-      const status = {
-        hold: document.getElementById(`hold-${indice}`).checked,
-        scrub: document.getElementById(`scrub-${indice}`).checked,
-        abort: document.getElementById(`abort-${indice}`).checked,
-        anomalia: document.getElementById(`anomalia-${indice}`).checked,
-        exito: document.getElementById(`exito-${indice}`).checked,
-      };
-
-      const activo = document.getElementById(`activo-${indice}`).checked;
-
-      contadoresCollection.doc(docId).set({
-        fecha,
-        hora,
-        cohete,
-        mision,
-        status,
-        activo
-      })
-      .then(() => {
-        // alert(`Datos de ${docId} guardados correctamente`);
-      })
-      .catch(error => {
-        console.error('Error guardando datos:', error);
-        alert('Error guardando datos');
-      });
+  
+    function mostrarMensaje(indice, texto, tipo) {
+      const contenedor = document.getElementById(`mensaje-${indice}`);
+      contenedor.textContent = texto;
+      contenedor.className = 'mensaje-alerta visible ' + tipo;
+  
+      setTimeout(() => {
+        contenedor.classList.remove('visible');
+      }, 3000); // Oculta mensaje tras 3 segundos
     }
+  
+    function guardarCuenta(docId) {
+  const indice = docId.endsWith('1') ? '1' : '2';
 
-    window.onload = () => {
-      cargarCuenta('cuenta-regresiva-1', '1');
-      cargarCuenta('cuenta-regresiva-2', '2');
-    };
-  </script>
-  <script>
+  const fechaInput = document.getElementById(`fecha-${indice}`).value.trim();
+  const hora = document.getElementById(`hora-${indice}`).value.trim();
+  const cohete = document.getElementById(`cohete-${indice}`).value.trim();
+  const mision = document.getElementById(`mision-${indice}`).value.trim();
+
+  if (!fechaInput || !hora || !cohete || !mision) {
+    mostrarMensaje(indice, 'Por favor, completa todos los campos obligatorios.', 'error');
+    return; // No continúa con el guardado
+  }
+
+  const partes = fechaInput.split('-');
+  const fecha = partes.length === 3 ? `${partes[0]}/${partes[1]}/${partes[2]}` : '';
+
+  const status = {
+    hold: document.getElementById(`hold-${indice}`).checked,
+    scrub: document.getElementById(`scrub-${indice}`).checked,
+    abort: document.getElementById(`abort-${indice}`).checked,
+    anomalia: document.getElementById(`anomalia-${indice}`).checked,
+    exito: document.getElementById(`exito-${indice}`).checked,
+  };
+
+  const activo = document.getElementById(`activo-${indice}`).checked;
+
+  contadoresCollection.doc(docId).set({
+    fecha,
+    hora,
+    cohete,
+    mision,
+    status,
+    activo
+  })
+  .then(() => {
+    mostrarMensaje(indice, '¡Datos guardados con éxito!', 'exito');
+  })
+  .catch(error => {
+    console.error('Error guardando datos:', error);
+    mostrarMensaje(indice, 'Error al guardar los datos.', 'error');
+  });
+}
+
+  
     function iniciarCuentaRegresiva(docId, elementoId) {
       const cuentaAtras = document.getElementById(elementoId);
       const clasesEstado = ['status-verde', 'status-naranja', 'status-rojo'];
-    
+  
       setInterval(() => {
         db.collection('contadores').doc(docId).get().then(doc => {
           if (!doc.exists) {
             cuentaAtras.textContent = "Sin datos";
             return;
           }
-    
+  
           const data = doc.data();
           const fechaHora = new Date(`${data.fecha} ${data.hora}`).getTime();
           const now = new Date().getTime();
           const distancia = fechaHora - now;
-    
+  
           const { hold, scrub, abort, anomalia, exito } = data.status || {};
-    
+  
           clasesEstado.forEach(clase => cuentaAtras.classList.remove(clase));
-    
+  
           if (distancia > 0) {
             const h = Math.floor(distancia / (1000 * 60 * 60));
             const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distancia % (1000 * 60)) / 1000);
-    
+  
             if (scrub) {
               cuentaAtras.textContent = "CANCELADO";
               cuentaAtras.style.backgroundColor = "red";
@@ -452,13 +394,13 @@
               cuentaAtras.textContent = `T-${formatTime(h)}:${formatTime(m)}:${formatTime(s)}`;
               cuentaAtras.style.backgroundColor = "rgb(0, 62, 158)";
             }
-    
+  
           } else {
             const elapsed = -distancia + 1000;
             const eh = Math.floor(elapsed / (1000 * 60 * 60));
             const em = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
             const es = Math.floor((elapsed % (1000 * 60)) / 1000);
-    
+  
             if (scrub) {
               cuentaAtras.textContent = "CANCELADO";
               cuentaAtras.style.backgroundColor = "red";
@@ -484,27 +426,26 @@
               cuentaAtras.style.backgroundColor = "rgb(0, 62, 158)";
             }
           }
-    
+  
         }).catch(err => {
           console.error("Error leyendo datos:", err);
           cuentaAtras.textContent = "Error";
         });
       }, 1000);
     }
-    
+  
     function formatTime(time) {
       return time < 10 ? "0" + time : time;
     }
-    
+  
     window.onload = () => {
       cargarCuenta('cuenta-regresiva-1', '1');
       cargarCuenta('cuenta-regresiva-2', '2');
-    
+  
       iniciarCuentaRegresiva('cuenta-regresiva-1', 'cuentaAtras1');
       iniciarCuentaRegresiva('cuenta-regresiva-2', 'cuentaAtras2');
     };
-    </script>
-    
+  </script>
 
 </body>
 </html>
