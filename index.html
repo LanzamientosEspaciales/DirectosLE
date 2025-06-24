@@ -19,6 +19,7 @@
     }
     .contenedor {
       display: flex;
+      
       justify-content: center;
       gap: 40px;
       flex-wrap: nowrap;
@@ -153,6 +154,14 @@
 .mensaje-alerta.error {
   background-color: #ef4444; /* rojo */
   color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .contenedor {
+    flex-direction: column;
+    align-items: center;
+  }
+  
 }
 
   </style>
